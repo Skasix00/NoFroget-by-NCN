@@ -6,6 +6,7 @@ import Contacts from "../pages/contacts";
 import Login from "../pages/login";
 import NotFound from "../pages/notfound";
 import PrivateRoute from "../components/privateroute";
+import Logout from "../pages/logout";
 
 export default function Routing() {
 	return (
@@ -23,6 +24,7 @@ export default function Routing() {
 					<Route path='/about' element={<About />} />
 					<Route path='/contact' element={<Contacts />} />
 					<Route path='/login' element={<Login />} />
+					<Route path='/logout' element={<Logout />} />
 					<Route path='*' element={<NotFound />} />
 				</Route>
 			</Routes>

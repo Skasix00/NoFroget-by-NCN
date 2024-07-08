@@ -3,8 +3,10 @@ import { Navbar, Nav } from "react-bootstrap";
 import { FaInfoCircle, FaPhone, FaPercent } from "react-icons/fa";
 import "./index.css";
 import Routing from "../../routes/routes";
+import { useAuth } from "../../provider/userprovider";
 
 export default function Header() {
+	const user = useAuth();
 	return (
 		<Router>
 			<Navbar className='navbar-bg' expand='lg'>
@@ -24,9 +26,15 @@ export default function Header() {
 						<Nav.Link as={Link} to='/contact' className='nav-link'>
 							<FaPhone /> Contact
 						</Nav.Link>
-						<Nav.Link as={Link} to='/login' className='nav-link'>
-							<FaPercent /> Login
-						</Nav.Link>
+						{user.jwt === "null" ? (
+							<Nav.Link as={Link} to='/login' className='nav-link'>
+								<FaPercent /> Login
+							</Nav.Link>
+						) : (
+							<Nav.Link as={Link} to='/logout' className='nav-link'>
+								<FaPercent /> Logout
+							</Nav.Link>
+						)}
 					</Nav>
 				</Navbar.Collapse>
 			</Navbar>

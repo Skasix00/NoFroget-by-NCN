@@ -9,7 +9,7 @@ export default function PrivateRoute({ children }) {
 	const [isValid, setIsValid] = useState(null);
 	const [isLoading, setIsLoading] = useState(true);
 
-	if (user && user.jwt) {
+	if (user && user.jwt && user.jwt !== "null") {
 		fetch(apiUrl + `user/verifyToken?token=${encodeURIComponent(user.jwt)}`, { method: "POST" }).then((isValid) => {
 			if (isValid.status === 200) {
 				setIsValid(true);

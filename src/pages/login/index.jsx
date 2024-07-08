@@ -1,8 +1,12 @@
 import { useState } from "react";
 import { FormField, Button, Form } from "semantic-ui-react";
 import { getAPIUrl } from "../../helpers/helpers";
+import { useAuth } from "../../provider/userprovider";
+import {useNavigate } from "react-router-dom";
 
 export default function Login() {
+	const auth = useAuth();
+	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
 	const [password, setPassword] = useState("");
 
@@ -15,8 +19,9 @@ export default function Login() {
 				return response.json();
 			})
 			.then((data) => {
-				console.log("Data:", data);
-				sessionStorage.setItem("jwt", data.token);
+				auth.setJwt(data.token);
+				navigate("/");
+				//sessionStorage.setItem("jwt", data.token);
 			})
 			.catch((error) => {
 				console.error("There was a problem with the fetch operation:", error);

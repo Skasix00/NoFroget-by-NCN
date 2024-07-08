@@ -6,7 +6,6 @@ const AuthProvider = ({ children }) => {
 	const [jwt, setJwt] = useState(JSON.stringify(sessionStorage.getItem("jwt")));
 	const authValue = { jwt, setJwt };
 
-
 	return <AuthContext.Provider value={authValue}>{children}</AuthContext.Provider>;
 };
 
