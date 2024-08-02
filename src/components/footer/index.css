@@ -1,7 +1,14 @@
 .footer {
-	position: absolute;
-	bottom: 0;
-	width: 100%;
-	height: 60px; /* Height of the footer */
-	background: #72c2f1;
+    flex: none;
+    width: 100%;
+    background: linear-gradient(to right, #9e41eb, #caa0ec);
+    height: 60px;
+}
+
+.footer-brand-text {
+    margin-right: 1vw;
+    float: right;
+    font-size: 16px;
+    font-weight: bold;
+    color: white;
 }

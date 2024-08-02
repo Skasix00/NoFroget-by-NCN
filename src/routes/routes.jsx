@@ -7,10 +7,11 @@ import Login from "../pages/login";
 import NotFound from "../pages/notfound";
 import PrivateRoute from "../components/privateroute";
 import Logout from "../pages/logout";
+import "../common/styles/index.css";
 
 export default function Routing() {
 	return (
-		<div className='container mt-4'>
+		<div className='wrapper mt-4'>
 			<Routes>
 				<Route path='/' element={<Outlet />}>
 					<Route

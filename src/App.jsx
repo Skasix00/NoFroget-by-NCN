@@ -1,10 +1,12 @@
+import "../src/common/styles/index.css";
 import MainLayout from "./components/mainlayout";
+import Routing from "./routes/routes";
+
 function App() {
 	return (
-		<div className="wrapper">
-		<MainLayout>	
+		<MainLayout>
+			<Routing></Routing>
 		</MainLayout>
-		</div>
 	);
 }
 
