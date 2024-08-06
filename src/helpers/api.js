@@ -14,14 +14,16 @@ async function Get(endpoint) {
 }
 
 async function Post(endpoint, data) {
-	await axios
-		.post(API_URL + endpoint, data)
-		.then((response) => {
-			console.log(response.data);
-		})
-		.catch((error) => {
-			throw new Error(error);
-		});
+	try {
+		const response = await axios.post(API_URL + endpoint, data);
+		if (response.status === 200) {
+			return "OK";
+		} else {
+			return "Unexpected status code: " + response.status;
+		}
+	} catch (error) {
+		throw new Error(error);
+	}
 }
 
 async function Delete() {}

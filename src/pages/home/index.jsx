@@ -1,7 +1,7 @@
 import { Container } from "@mantine/core";
 import "./index.css";
 import "../../common/styles/index.css";
-import { useEffect, useState } from "react";
+import { useCallback, useEffect, useState } from "react";
 import { Get, Post } from "../../helpers/api";
 import { Calendar, momentLocalizer } from "react-big-calendar";
 import moment from "moment";
@@ -12,6 +12,7 @@ import "bootstrap/dist/css/bootstrap.min.css";
 export default function Home() {
 	const localizer = momentLocalizer(moment);
 	const [appointements, setAppointments] = useState([]);
+	const [visible, setVisible] = useState(false);
 
 	const DnDCalendar = withDragAndDrop(Calendar);
 
@@ -38,6 +39,13 @@ export default function Home() {
 		fetchAppointments();
 	}, []);
 
+
+	const sendValueToChild = () =>{
+		setVisible(true);
+		//callback(visible);
+	}
+
+
 	function HandleEventDrop({ event }) {
 		console.log(event);
 	}
@@ -50,7 +58,7 @@ export default function Home() {
 	}
 	return (
 		<Container fluid size='responsive'>
-			<AddEvent />
+			<AddEvent visible={sendValueToChild}/>
 			<br></br>
 			{appointements ? (
 				<div>

@@ -1,7 +1,9 @@
 import { useEffect, useState } from "react";
 import { Get, Post } from "../../helpers/api";
+import { notifications } from "@mantine/notifications";
+import "./index.css";
 
-export default function AddEvent() {
+export default function AddEvent({visible}) {
 	const [isVisible, setIsVisible] = useState(false);
 	const [startDate, setStartDate] = useState("");
 	const [starthours, setStartHours] = useState("00");
@@ -15,8 +17,8 @@ export default function AddEvent() {
 	const [services, setServices] = useState(undefined);
 	const [npessoas, setNpessoas] = useState("");
 	const [descricao, setDescricao] = useState("");
-	const [cliente, setCliente] = useState("");
-	const [servico, setServico] = useState("");
+	const [cliente, setCliente] = useState("none");
+	const [servico, setServico] = useState("none");
 	const [titulo, setTitulo] = useState("");
 
 	const handleSetDateTime = () => {
@@ -45,7 +47,47 @@ export default function AddEvent() {
 		}
 	}, [clients, services]);
 
+	useEffect(() => {
+		const handleSetDateTime = () => {
+			if (startDate) {
+				const formattedStartDateTime = `${startDate}T${starthours.padStart(2, "0")}:${startminutes.padStart(2, "0")}`;
+				setStartDateTime(formattedStartDateTime);
+			}
+			if (endDate) {
+				const formattedEndDateTime = `${endDate}T${endhours.padStart(2, "0")}:${endminutes.padStart(2, "0")}`;
+				setEndDateTime(formattedEndDateTime);
+			}
+		};
+
+		handleSetDateTime();
+	}, [startDate, endDate, starthours, startminutes, endhours, endminutes]);
+
 	const handleFormSubmit = async () => {
+		let msg = "";
+
+		if (startDateTime === "") {
+			msg += "Preencha a data de inicio\n";
+		}
+
+		if (endDateTime === "") {
+			msg += "Preencha a data de fim \n";
+		}
+		if (cliente === "none") {
+			msg += "Indique a cliente a marcar\n";
+		}
+		if (titulo === "") {
+			msg += "Preencha o titulo\n";
+		}
+		if (servico === "none") {
+			msg += "Preencha o serviço\n";
+		}
+		if (npessoas === "") {
+			msg += "Indique o numero de pessoas\n";
+		}
+		if (descricao === "") {
+			msg += "Preencha a descrição\n";
+		}
+
 		const appointment = {
 			title: titulo,
 			start: startDateTime,
@@ -53,10 +95,28 @@ export default function AddEvent() {
 			client: cliente,
 			description: descricao,
 			nofpersons: npessoas,
-			category: "no category",
+			category: servico,
 		};
 
-        await Post("");
+		if (msg) {
+			alert(`Campos em Falta:\n\n${msg}`);
+		} else {
+			let newAppointment = await Post("nofroget/post/addNew", appointment);
+			console.log(newAppointment);
+
+			if (newAppointment === "OK") {
+				notifications.show({
+					title: "Marcação criada com sucesso.",
+					message: "Continue o bom trabalho!!",
+					autoClose: 3000,
+					color: "green",
+					className: "notification",
+					withBorder: true,
+				});
+
+				setIsVisible(!isVisible);
+			}
+		}
 	};
 	return (
 		<>
@@ -75,14 +135,15 @@ export default function AddEvent() {
 									<div className='col-lg-12'>
 										<div className='form-group'>
 											<label htmlFor='tituloInput'>Titulo</label>
-											<input type='text' className='form-control' id='tituloInput' name='tituloInput' value={titulo} onBlur={(e) => setTitulo(e.target.value)}></input>
+											<input type='text' className='form-control' id='tituloInput' name='tituloInput' value={titulo} onChange={(e) => setTitulo(e.target.value)}></input>
 										</div>
 										<div className='form-group'>
 											<label htmlFor='serviceInput'>Serviço</label>
-											<select name='serviceInput' id='serviceInput' className='form-control' value={servico} onBlur={(e) => setServico(e.target.value)}>
+											<select name='serviceInput' id='serviceInput' className='form-control' value={servico} onChange={(e) => setServico(e.target.value)}>
+												<option value='none'>-- Escolha um serviço --</option>
 												{services ? (
 													services.map((s) => (
-														<option key={s._id} value={s._id}>
+														<option key={s._id} value={s.title}>
 															{s.title}
 														</option>
 													))
@@ -156,10 +217,11 @@ export default function AddEvent() {
 										<br></br>
 										<div className='form-group'>
 											<label htmlFor='clienteNameInput'>Cliente</label>
-											<select className='form-control' id='clienteNameInput' name='clienteNameInput' value={cliente} onBlur={(e) => setCliente(e.target.value)}>
+											<select className='form-control' id='clienteNameInput' name='clienteNameInput' value={cliente} onChange={(e) => setCliente(e.target.value)}>
+												<option value='none'>-- Escolha um cliente --</option>
 												{clients ? (
 													clients.map((s) => (
-														<option key={s._id} value={s._id}>
+														<option key={s._id} value={s.ClientName}>
 															{s.ClientName}
 														</option>
 													))
@@ -170,7 +232,7 @@ export default function AddEvent() {
 										</div>
 										<div className='form-group'>
 											<label htmlFor='nPersonsInput'>Nº de Pessoas</label>
-											<input type='text' className='form-control' id='nPersonsInput' name='nPersonsInput' value={npessoas} onBlur={(e) => setNpessoas(e.target.value)}></input>
+											<input type='text' className='form-control' id='nPersonsInput' name='nPersonsInput' value={npessoas} onChange={(e) => setNpessoas(e.target.value)}></input>
 										</div>
 										<div className='form-group'>
 											<label htmlFor='descriptionInput'>Descrição</label>
@@ -180,7 +242,7 @@ export default function AddEvent() {
 												id='descriptionInput'
 												name='descriptionInput'
 												value={descricao}
-												onBlur={(e) => {
+												onChange={(e) => {
 													setDescricao(e.target.value);
 												}}
 											></input>
@@ -192,7 +254,7 @@ export default function AddEvent() {
 								<button type='button' className='btn btn-secondary' data-dismiss='modal' onClick={(e) => setIsVisible(!isVisible)}>
 									Close
 								</button>
-								<button type='button' className='btn btn-primary'>
+								<button type='button' className='btn btn-primary' onClick={handleFormSubmit}>
 									Save changes
 								</button>
 							</div>
