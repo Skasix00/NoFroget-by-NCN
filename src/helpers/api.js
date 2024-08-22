@@ -26,6 +26,17 @@ async function Post(endpoint, data) {
 	}
 }
 
-async function Delete() {}
+async function Delete(endpoint) {
+	try {
+		const response = await axios.delete(API_URL + endpoint);
+		if (response.status === 200) {
+			return "OK";
+		} else {
+			return "Unexpected status code: " + response.status;
+		}
+	} catch (error) {
+		throw new Error(error);
+	}
+}
 
 export { Get, Post, Delete };

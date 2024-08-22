@@ -7,10 +7,10 @@ import "@mantine/core/styles.css";
 import { MantineProvider } from "@mantine/core";
 import { Notifications } from "@mantine/notifications";
 import "@mantine/notifications/styles.css";
+import '@mantine/core/styles.css';
+import '@mantine/dates/styles.css';
 import "./common/styles/index.css";
 import { BrowserRouter as Router } from "react-router-dom";
-import "react-big-calendar/lib/css/react-big-calendar.css";
-import "react-big-calendar/lib/addons/dragAndDrop/styles.css";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>

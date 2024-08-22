@@ -3,8 +3,61 @@
 	padding-bottom: 20px;
 }
 
-.calendar-whitebg{
+.calendar-whitebg {
 	background-color: #ffff;
 	border-radius: 15px;
 	padding: 15px;
+}
+
+.custom-calendar .fc-toolbar {
+	background-color: #f5f5f5;
+	padding: 10px;
+}
+
+.custom-calendar .fc-header-toolbar {
+	background-color: #a148eb;
+	color: white;
+}
+
+.custom-calendar .fc-daygrid-day {
+	background-color: #ffffff;
+	border: 1px solid #ddd;
+}
+
+.custom-calendar .fc-event {
+	background-color: #caa0ec;
+	color: #ffffff;
+	border: 1px solid #a148eb;
+}
+
+.custom-calendar .fc-event:hover {
+	background-color: #a148eb;
+	color: #caa0ec;
+}
+
+.custom-calendar .fc-list-view {
+	background-color: #caa0ec;
+}
+.custom-calendar .fc-list-day-side-text {
+	color: #a148eb;
+}
+
+.custom-calendar .fc-list-day-text {
+	color: #a148eb;
+}
+
+.custom-calendar .fc-list-event-dot{
+	border-color: #a148eb;
+}
+
+.custom-calendar .fc-col-header-cell-cushion {
+	color: #a148eb;
+}
+
+.custom-calendar .fc-daygrid-event-dot {
+    border-color: #a148eb;
+}
+
+.custom-calendar .fc-daygrid-day-number {
+    color: #a148eb;
 }

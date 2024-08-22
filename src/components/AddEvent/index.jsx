@@ -3,8 +3,7 @@ import { Get, Post } from "../../helpers/api";
 import { notifications } from "@mantine/notifications";
 import "./index.css";
 
-export default function AddEvent({visible}) {
-	const [isVisible, setIsVisible] = useState(false);
+export default function AddEvent({ isVisible, onClose, onAddAppointment  }) {
 	const [startDate, setStartDate] = useState("");
 	const [starthours, setStartHours] = useState("00");
 	const [startminutes, setStartMinutes] = useState("00");
@@ -21,16 +20,20 @@ export default function AddEvent({visible}) {
 	const [servico, setServico] = useState("none");
 	const [titulo, setTitulo] = useState("");
 
-	const handleSetDateTime = () => {
-		if (startDate) {
-			const formattedStartDateTime = `${startDate}T${starthours.padStart(2, "0")}:${startminutes.padStart(2, "0")}`;
-			setStartDateTime(formattedStartDateTime);
-		}
-		if (endDate) {
-			const formattedEndDateTime = `${endDate}T${endhours.padStart(2, "0")}:${endminutes.padStart(2, "0")}`;
-			setEndDateTime(formattedEndDateTime);
-		}
-	};
+	useEffect(() => {
+		const handleSetDateTime = () => {
+			if (startDate) {
+				const formattedStartDateTime = `${startDate}T${starthours.padStart(2, "0")}:${startminutes.padStart(2, "0")}`;
+				setStartDateTime(formattedStartDateTime);
+			}
+			if (endDate) {
+				const formattedEndDateTime = `${endDate}T${endhours.padStart(2, "0")}:${endminutes.padStart(2, "0")}`;
+				setEndDateTime(formattedEndDateTime);
+			}
+		};
+
+		handleSetDateTime();
+	}, [endDate, endhours, endminutes, startDate, starthours, startminutes]);
 
 	useEffect(() => {
 		if (!clients && !services) {
@@ -47,85 +50,58 @@ export default function AddEvent({visible}) {
 		}
 	}, [clients, services]);
 
-	useEffect(() => {
-		const handleSetDateTime = () => {
-			if (startDate) {
-				const formattedStartDateTime = `${startDate}T${starthours.padStart(2, "0")}:${startminutes.padStart(2, "0")}`;
-				setStartDateTime(formattedStartDateTime);
-			}
-			if (endDate) {
-				const formattedEndDateTime = `${endDate}T${endhours.padStart(2, "0")}:${endminutes.padStart(2, "0")}`;
-				setEndDateTime(formattedEndDateTime);
-			}
-		};
-
-		handleSetDateTime();
-	}, [startDate, endDate, starthours, startminutes, endhours, endminutes]);
-
 	const handleFormSubmit = async () => {
 		let msg = "";
 
-		if (startDateTime === "") {
-			msg += "Preencha a data de inicio\n";
-		}
-
-		if (endDateTime === "") {
-			msg += "Preencha a data de fim \n";
-		}
-		if (cliente === "none") {
-			msg += "Indique a cliente a marcar\n";
-		}
-		if (titulo === "") {
-			msg += "Preencha o titulo\n";
-		}
-		if (servico === "none") {
-			msg += "Preencha o serviço\n";
-		}
-		if (npessoas === "") {
-			msg += "Indique o numero de pessoas\n";
-		}
-		if (descricao === "") {
-			msg += "Preencha a descrição\n";
-		}
-
-		const appointment = {
-			title: titulo,
-			start: startDateTime,
-			end: endDateTime,
-			client: cliente,
-			description: descricao,
-			nofpersons: npessoas,
-			category: servico,
-		};
+		if (startDateTime === "") msg += "Preencha a data de inicio\n";
+		if (endDateTime === "") msg += "Preencha a data de fim \n";
+		if (cliente === "none") msg += "Indique o cliente a marcar\n";
+		if (titulo === "") msg += "Preencha o título\n";
+		if (servico === "none") msg += "Preencha o serviço\n";
+		if (npessoas === "") msg += "Indique o número de pessoas\n";
+		if (descricao === "") msg += "Preencha a descrição\n";
 
 		if (msg) {
 			alert(`Campos em Falta:\n\n${msg}`);
 		} else {
-			let newAppointment = await Post("nofroget/post/addNew", appointment);
-			console.log(newAppointment);
+			const appointment = {
+				title: titulo,
+				start: startDateTime,
+				end: endDateTime,
+				client: cliente,
+				description: descricao,
+				nofpersons: npessoas,
+				category: servico,
+			};
 
-			if (newAppointment === "OK") {
-				notifications.show({
-					title: "Marcação criada com sucesso.",
-					message: "Continue o bom trabalho!!",
-					autoClose: 3000,
-					color: "green",
-					className: "notification",
-					withBorder: true,
-				});
-
-				setIsVisible(!isVisible);
+			try {
+				const response = await Post("nofroget/post/addNew", appointment);
+				if (response === "OK") {
+					notifications.show({
+						title: "Marcação criada com sucesso.",
+						message: "Continue o bom trabalho!!",
+						autoClose: 3000,
+						color: "green",
+						className: "notification",
+						withBorder: true,
+					});
+					onAddAppointment(appointment); 
+					onClose();
+				} else {
+					alert("Failed to create appointment");
+				}
+			} catch (error) {
+				console.error("Error creating appointment:", error);
+				alert("Error creating appointment");
 			}
 		}
 	};
+
 	return (
 		<>
-			<button className='btn btn-outline-success' data-toggle='modal' data-target='#exampleModal' onClick={(e) => setIsVisible(!isVisible)}>
-				Adicionar Nova Marcação
-			</button>
 			<div>
-				<div className='modal' id='exampleModal' role='dialog' style={{ display: isVisible ? "block" : "none" }}>
-					<div className='modal-dialog' role='document'>
+				<div className='modal' id='exampleModal' style={{ display: isVisible ? "block" : "none", backgroundColor: "hsla(0, 0%, 13%, 0.596)" }}>
+					<div className='modal-dialog'>
 						<div className='modal-content'>
 							<div className='modal-header'>
 								<h5 className='modal-title'>Nova Marcação</h5>
@@ -251,7 +227,7 @@ export default function AddEvent({visible}) {
 								</div>
 							</div>
 							<div className='modal-footer'>
-								<button type='button' className='btn btn-secondary' data-dismiss='modal' onClick={(e) => setIsVisible(!isVisible)}>
+								<button type='button' className='btn btn-secondary' data-dismiss='modal' onClick={onClose}>
 									Close
 								</button>
 								<button type='button' className='btn btn-primary' onClick={handleFormSubmit}>

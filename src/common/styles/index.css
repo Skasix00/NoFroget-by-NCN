@@ -53,3 +53,15 @@ html {
 .overflow-scroll {
 	overflow: scroll;
 }
+
+.smoke-fume {
+	color: #cacaca;
+}
+
+.charcoal{
+	color:#1a1a1a
+}
+.button-violet {
+	background-color: #a148eb !important;
+	color: #ddd;
+}

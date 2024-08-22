@@ -1,0 +1,20 @@
+.background-white {
+	background-color: #ffff !important;
+}
+
+.white-bg {
+	background-color: #ffff;
+}
+
+.border-15 {
+	border-radius: 15px;
+}
+
+.border-red {
+	border: 2px solid red;
+}
+
+.mantine-Table-th {
+	background-color: #a652eb;
+    color: white;
+}

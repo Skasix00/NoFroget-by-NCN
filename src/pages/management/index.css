@@ -1,0 +1,14 @@
+.services-accordion-item-danger {
+	background-color: red !important;
+}
+
+.services-accordion-item-success {
+	background-color: rgba(69, 184, 113, 0.74) !important;
+}
+
+.services-accordion-item-warning {
+	background-color: rgba(192, 173, 0, 0.623) !important;
+}
+.text-white {
+	color: #ddd;
+}

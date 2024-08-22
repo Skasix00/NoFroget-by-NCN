@@ -8,6 +8,7 @@ import NotFound from "../pages/notfound";
 import PrivateRoute from "../components/privateroute";
 import Logout from "../pages/logout";
 import "../common/styles/index.css";
+import Management from "../pages/management";
 
 export default function Routing() {
 	return (
@@ -19,6 +20,14 @@ export default function Routing() {
 						element={
 							<PrivateRoute>
 								<Home />
+							</PrivateRoute>
+						}
+					/>
+					<Route
+						path='/management'
+						element={
+							<PrivateRoute>
+								<Management />
 							</PrivateRoute>
 						}
 					/>
