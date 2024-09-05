@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { Accordion, Button, NumberInput, TextInput, Checkbox } from "@mantine/core";
-import { Get } from "../../../../helpers/api";
+import { Get, Update } from "../../../../helpers/api";
 import { notifications } from "@mantine/notifications";
 import { DateInput } from "@mantine/dates";
 import dayjs from "dayjs";
@@ -37,9 +37,13 @@ export default function UpdateClient() {
 		updateForm.Birthdate = Birthdate;
 		let data = updateForm;
 		let reallyUpdates = confirm("Quer mesmo alterar este registo ?");
-		if (reallyUpdates && updateForm) {
+		if (reallyUpdates && updateForm && client !== "none") {
 			try {
-				//Delete(`nofroget/clients/delete?id=${client}`);
+				await Update(`nofroget/clients/update/${client}`, data);
+
+				let updatedClients = await Get("nofroget/clients/getAll");
+				setClients(updatedClients);
+
 				clearForm();
 				return notifications.show({
 					title: "Cliente alterado com sucesso !",
@@ -109,21 +113,17 @@ export default function UpdateClient() {
 			try {
 				let clientData = await Get(`nofroget/clients/${client}`);
 
-				// Format the birthdate
 				let bdateCut = clientData.Birthdate.substring(0, clientData.Birthdate.indexOf("T"));
 				let bdate = new Date(bdateCut);
 
-				// Update the entire updateForm state
 				setUpdateForm((prevForm) => ({
 					...prevForm,
 					ClientName: clientData.ClientName,
 					Age: clientData.Age,
 				}));
 
-				// Update the birthdate state separately
 				setBirthdate(bdate);
 
-				// Show success notification
 				return notifications.show({
 					title: "Informação carregada com sucesso",
 					message: "Sucesso!",
@@ -133,7 +133,6 @@ export default function UpdateClient() {
 					withBorder: true,
 				});
 			} catch (error) {
-				// Show error notification
 				return notifications.show({
 					title: "Ups algo correu mal...",
 					message: "Contacte o administrador.",
@@ -184,9 +183,6 @@ export default function UpdateClient() {
 										)}
 									</select>
 								</div>
-								<div></div>
-								{/* onChange={setClientEnabled(!isActiveClient)} */}
-								{/* onChange={setClientDeleted(!isDeletedClient)} */}
 								<TextInput className='text-white' label='Nome da Cliente' name='ClientName' value={updateForm.ClientName} onChange={handleUpdateInputChange}></TextInput>
 								<div className='row'>
 									<div className='col-lg-4'>
@@ -198,10 +194,10 @@ export default function UpdateClient() {
 								</div>
 								<div className='row mt-3'>
 									<div className='col-lg-2'>
-										<Checkbox defaultChecked labelPosition='right' label='Ativo' color='grape' value={isActiveClient}></Checkbox>
+										<Checkbox defaultChecked labelPosition='right' label='Ativo' color='grape' value={isActiveClient} onChange={() => setClientEnabled(!isActiveClient)}></Checkbox>
 									</div>
 									<div className='col-lg-2'>
-										<Checkbox labelPosition='right' label='Apagado' color='grape' value={isDeletedClient}></Checkbox>
+										<Checkbox labelPosition='right' label='Apagado' color='grape' value={isDeletedClient} onChange={() => setClientDeleted(!isDeletedClient)}></Checkbox>
 									</div>
 								</div>
 							</div>

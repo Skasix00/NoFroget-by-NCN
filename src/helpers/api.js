@@ -39,4 +39,17 @@ async function Delete(endpoint) {
 	}
 }
 
-export { Get, Post, Delete };
+async function Update(endpoint, data) {
+	try {
+		const response = await axios.put(API_URL + endpoint, data);
+		if (response.status === 200) {
+			return "OK";
+		} else {
+			return "Unexpected status code: " + response.status;
+		}
+	} catch (error) {
+		throw new Error(error);
+	}
+}
+
+export { Get, Post, Delete, Update };

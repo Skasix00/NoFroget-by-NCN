@@ -1,9 +1,7 @@
 import { useEffect, useState } from "react";
 import { Accordion, Button, NumberInput, TextInput, Checkbox } from "@mantine/core";
-import { Get } from "../../../../helpers/api";
+import { Get, Update } from "../../../../helpers/api";
 import { notifications } from "@mantine/notifications";
-import { DateInput } from "@mantine/dates";
-import dayjs from "dayjs";
 
 export default function UpdateService() {
 	const [services, setServices] = useState(undefined);
@@ -15,17 +13,17 @@ export default function UpdateService() {
 		isDeleted: 0,
 	});
 	const [price, setPrice] = useState(0);
-	const [isActiveClient, setClientEnabled] = useState(true);
-	const [isDeletedClient, setClientDeleted] = useState(false);
+	const [isActiveService, setServiceEnabled] = useState(true);
+	const [isDeletedService, setServiceDeleted] = useState(false);
 
 	useEffect(() => {
 		if (!services) {
-			const getClients = async () => {
-				let clients = await Get("nofroget/services/getAll");
-				setServices(clients);
+			const getServices = async () => {
+				let services = await Get("nofroget/services/getAll");
+				setServices(services);
 			};
 
-			getClients();
+			getServices();
 		}
 	}, [services]);
 
@@ -34,13 +32,17 @@ export default function UpdateService() {
 		updateForm.price = price;
 		let data = updateForm;
 		let reallyUpdates = confirm("Quer mesmo alterar este registo ?");
-		if (reallyUpdates && updateForm) {
+		if (reallyUpdates && updateForm && service !== "none") {
 			try {
-				//Delete(`nofroget/clients/delete?id=${client}`);
+				await Update(`nofroget/services/update/${service}`, data);
+
+				let updatedServices = await Get("nofroget/services/getAll");
+				setServices(updatedServices);
+
 				clearForm();
 				return notifications.show({
-					title: "Cliente alterado com sucesso !",
-					message: "O cliente foi alterado",
+					title: "Serviço alterado com sucesso !",
+					message: "Serviço foi alterado",
 					autoClose: 3000,
 					color: "green",
 					className: "notification",
@@ -127,7 +129,7 @@ export default function UpdateService() {
 
 		setPrice(0);
 	};
-	
+
 	return (
 		<div className='mt-3'>
 			<Accordion chevronPosition='right' variant='separated'>
@@ -138,7 +140,7 @@ export default function UpdateService() {
 					<Accordion.Panel>
 						<div className='form-group'>
 							<label htmlFor='serviceInput' className='text-white'>
-								Cliente
+								Serviço
 							</label>
 							<div className='row'>
 								<div className='col-lg-12'>
@@ -155,8 +157,6 @@ export default function UpdateService() {
 										)}
 									</select>
 								</div>
-								{/* onChange={setClientEnabled(!isActiveClient)} */}
-								{/* onChange={setClientDeleted(!isDeletedClient)} */}
 								<div className='row'>
 									<div className='col-lg-4'>
 										<TextInput className='text-white' label='Nome do Serviço' name='title' value={updateForm.title} onChange={handleUpdateInputChange}></TextInput>
@@ -170,10 +170,10 @@ export default function UpdateService() {
 								</div>
 								<div className='row mt-3'>
 									<div className='col-lg-2'>
-										<Checkbox defaultChecked labelPosition='right' label='Ativo' color='grape' value={isActiveClient}></Checkbox>
+										<Checkbox defaultChecked labelPosition='right' label='Ativo' color='grape' value={isActiveService} onChange={() => setServiceEnabled(!isActiveService)}></Checkbox>
 									</div>
 									<div className='col-lg-2'>
-										<Checkbox labelPosition='right' label='Apagado' color='grape' value={isDeletedClient}></Checkbox>
+										<Checkbox labelPosition='right' label='Apagado' color='grape' value={isDeletedService} onChange={() => setServiceDeleted(!isDeletedService)}></Checkbox>
 									</div>
 								</div>
 							</div>
