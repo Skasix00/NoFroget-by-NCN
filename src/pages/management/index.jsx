@@ -3,11 +3,13 @@ import ClientManagement from "./clientManagent/index";
 import ServiceManagement from "./serviceManagement/index";
 import ListingClients from "./clientManagent/listingClient";
 import ListingServices from "./serviceManagement/listingService";
+import { DragDropContext } from 'react-beautiful-dnd';
 
 export default function Management() {
 	return (
 		<>
 			<Container fluid size='responsive'>
+			<DragDropContext>
 				<section>
 					<div className='white-bg border-15 mb-4 shadow-bg listings'>
 						<div className='row'>
@@ -30,6 +32,7 @@ export default function Management() {
 						<ServiceManagement />
 					</div>
 				</section>
+				</DragDropContext>
 			</Container>
 		</>
 	);
