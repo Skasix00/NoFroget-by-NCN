@@ -47,7 +47,7 @@ export default function ListingClients() {
 	}, []);
 
 	return (
-		<div className='mt-3 ms-3'>
+		<div>
 			{clients.length === 0 ? (
 				<p>A Carregar...</p>
 			) : (

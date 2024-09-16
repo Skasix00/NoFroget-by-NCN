@@ -47,7 +47,7 @@ export default function ListingServices() {
 	}, []);
 
 	return (
-		<div className='mt-3 ms-3 me-3 mb-4'>
+		<div>
 			{services.length === 0 ? (
 				<p>A Carregar...</p>
 			) : (
