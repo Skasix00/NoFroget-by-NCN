@@ -51,7 +51,7 @@ export default function ListingClients() {
 			{clients.length === 0 ? (
 				<p>A Carregar...</p>
 			) : (
-				<Table>
+				<Table striped highlightOnHover withTableBorder withColumnBorders> 
 					<Table.Thead>
 						<Table.Tr>
 							<Table.Th>Nome Cliente</Table.Th>
