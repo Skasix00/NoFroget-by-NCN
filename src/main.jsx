@@ -11,16 +11,23 @@ import "@mantine/core/styles.css";
 import "@mantine/dates/styles.css";
 import "./common/styles/index.css";
 import { BrowserRouter as Router } from "react-router-dom";
+import { Provider } from "react-redux";
+import { PersistGate } from "redux-persist/integration/react";
+import { store, persistor } from "../utils/store";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<MantineProvider>
-			<Notifications position='bottom-center' />
-			<AuthProvider>
-				<Router>
-					<App />
-				</Router>
-			</AuthProvider>
-		</MantineProvider>
+		<Provider store={store}>
+			<PersistGate loading={null} persistor={persistor}>
+				<MantineProvider>
+					<Notifications position='bottom-center' />
+					<AuthProvider>
+						<Router>
+							<App />
+						</Router>
+					</AuthProvider>
+				</MantineProvider>
+			</PersistGate>
+		</Provider>
 	</React.StrictMode>
 );

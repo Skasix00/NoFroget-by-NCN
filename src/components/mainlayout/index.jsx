@@ -12,7 +12,7 @@ export default function MainLayout({ children }) {
 		<React.Fragment>
 			<StickyCard />
 			<Header />
-			{location.pathname === "/login" ? <div className='container-default'>{children}</div> : <div className='container-default container-default-bg-color shadow-bg'>{children}</div>}
+			{location.pathname === "/login" ? <div className='container-default'>{children}</div> : <div className='container-default container-default-bg-color shadow-bg pink-silk-bg'>{children}</div>}
 			<Footer />
 		</React.Fragment>
 	);

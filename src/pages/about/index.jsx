@@ -7,7 +7,7 @@ export default function About() {
 		<Container fluid size='responsive'>
 			<div>
 				<section>
-					<div className='white-bg border-15 mb-4 shadow-bg'>
+					<div className='darkened-bg border-15 mb-4 shadow-bg-inset p-3'>
 						<div className='ms-3 mt-2'>
 							<h3>Quem somos ?</h3>
 							<p>
@@ -20,7 +20,7 @@ export default function About() {
 			</div>
 			<div>
 				<section>
-					<div className='white-bg border-15 mb-4 shadow-bg'>
+					<div className='darkened-bg border-15 mb-4 shadow-bg p-3'>
 						<div className='ms-3 mt-2'>
 							<h3>Onde estamos ?</h3>
 							<p>
@@ -33,7 +33,7 @@ export default function About() {
 			</div>
 			<div>
 				<section>
-					<div className='white-bg border-15 mb-4 shadow-bg'>
+					<div className='darkened-bg border-15 mb-4 shadow-bg p-3'>
 						<div className='ms-3 mt-2'>
 							<h3>A nossa localização !</h3>
 							<p>
@@ -46,7 +46,7 @@ export default function About() {
 			</div>
 			<div>
 				<section>
-					<div className='white-bg border-15 mb-4 shadow-bg'>
+					<div className='white-bg border-15 mb-4 shadow-bg p-3'>
 						<div className='ms-3 mt-2'>
 							<h3>Somos espcializados em...?</h3>
 							<p>

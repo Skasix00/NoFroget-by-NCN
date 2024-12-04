@@ -6,6 +6,11 @@
 	background-color: #ffff;
 }
 
+.darkened-bg {
+	background-color: #ecbebe;
+	color: rgb(78, 78, 78);
+}
+
 .border-15 {
 	border-radius: 15px;
 }

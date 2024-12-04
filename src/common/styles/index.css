@@ -1,7 +1,9 @@
 :root {
 	--greyBorder: #b3b3b3;
-	--greyBg: #808080;
-	--containerBgColor: #d4d4d4;
+	/* --greyBg: #808080; */
+	--lightPinkSilkBg: #c9b7eb;
+	/* --containerBgColor: #d4d4d4; */
+	--containerBgColor: #dacbcb;
 	--transparentBorder: #b3b3b334;
 }
 
@@ -37,9 +39,20 @@ html {
 }
 
 .shadow-bg {
-	border: 1px solid var(--transparentBorder);
+	/* border: 1px solid var(--transparentBorder);
 	-webkit-box-shadow: 0 0 10px #808080;
-	box-shadow: 0 0 10px #808080;
+	box-shadow: 0 0 10px #808080; */
+	box-shadow: inset 3px 3px 7px #ffffffb0, inset -3px -3px 5px rgba(94, 104, 121, 0.692);
+}
+
+.pink-silk-bg{
+	background: var(--lightPinkSilkBg);
+}
+
+.shadow-bg-inset {
+	border: 1px solid var(--containerBgColor);
+	-webkit-box-shadow: inset -3px -3px 7px #ffffffb2, inset 3px 3px 7px rgba(94, 104, 121, 0.945);
+	box-shadow: inset -3px -3px 7px #ffffffb2, inset 3px 3px 7px rgba(94, 104, 121, 0.945);
 }
 
 .border-radius-1 {
@@ -58,10 +71,15 @@ html {
 	color: #cacaca;
 }
 
-.charcoal{
-	color:#1a1a1a
+.charcoal {
+	color: #1a1a1a;
 }
 .button-violet {
 	background-color: #a148eb !important;
 	color: #ddd;
+}
+
+input[type="button"] {
+	outline: none !important;
+	box-shadow: none !important;
 }

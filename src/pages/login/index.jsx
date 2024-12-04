@@ -6,8 +6,11 @@ import "./index.css";
 import "../../common/styles/index.css";
 import { PasswordInput, Text, Group, TextInput, Button } from "@mantine/core";
 import { notifications } from "@mantine/notifications";
+import { useDispatch } from "react-redux";
+import { userData } from "../../../utils/stateSlice";
 
 export default function Login() {
+	const dispatch = useDispatch();
 	const auth = useAuth();
 	const navigate = useNavigate();
 	const [username, setUsername] = useState("");
@@ -31,6 +34,7 @@ export default function Login() {
 			.then((data) => {
 				auth.setJwt(data.token);
 				sessionStorage.setItem("jwt", JSON.stringify(data.token));
+				dispatch(userData(data));
 				navigate("/");
 				return notifications.show({
 					title: "Login Efetuado com Sucesso",

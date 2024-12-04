@@ -69,8 +69,8 @@ export default function Home() {
 	};
 	return (
 		<Container fluid size='responsive'>
-			<button className='btn btn-outline-success' onClick={handleNewEvent}>
-				Adicionar Nova Marcação
+			<button className='btn btn-popout' onClick={handleNewEvent}>
+				Nova Marcação
 			</button>
 			<AddEvent isVisible={isModalVisible} onClose={handleCloseModal} onAddAppointment={addNewAppointment} />
 			<ViewEvent isVisible={isViewModalVisible} onClose={handleViewCloseModal} appointmentID={appointmentID} />

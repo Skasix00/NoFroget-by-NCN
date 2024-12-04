@@ -7,7 +7,7 @@ export default function Footer() {
 	return (
 		<div className='footer pt-3 ps-2'>
 			<footer>
-				<p className='footer-brand-text'>NiceNails {currentYear} ™</p>
+				<p className='footer-brand-text'>BCS {currentYear} ™</p>
 			</footer>
 		</div>
 	);
