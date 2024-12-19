@@ -71,6 +71,7 @@
 	box-shadow: inset 3px 3px 7px #ffffffb0, inset -3px -3px 5px rgba(94, 104, 121, 0.692);
 }
 .btn-popout:active {
+	border: none;
 	outline: none !important;
 	-webkit-box-shadow: inset -3px -3px 7px #ffffffb2, inset 3px 3px 7px rgba(94, 104, 121, 0.945);
 	box-shadow: inset -3px -3px 7px #ffffffb2, inset 3px 3px 7px rgba(94, 104, 121, 0.945);

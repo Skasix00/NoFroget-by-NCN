@@ -1,4 +1,4 @@
-import React from "react";
+import React, { Suspense } from "react";
 import ReactDOM from "react-dom/client";
 import App from "./App.jsx";
 import "bootstrap/dist/css/bootstrap.min.css";
@@ -14,20 +14,23 @@ import { BrowserRouter as Router } from "react-router-dom";
 import { Provider } from "react-redux";
 import { PersistGate } from "redux-persist/integration/react";
 import { store, persistor } from "../utils/store";
+import "./i18n.js";
 
 ReactDOM.createRoot(document.getElementById("root")).render(
 	<React.StrictMode>
-		<Provider store={store}>
-			<PersistGate loading={null} persistor={persistor}>
-				<MantineProvider>
-					<Notifications position='bottom-center' />
-					<AuthProvider>
-						<Router>
-							<App />
-						</Router>
-					</AuthProvider>
-				</MantineProvider>
-			</PersistGate>
-		</Provider>
+		<Suspense fallback="A carregar....">
+			<Provider store={store}>
+				<PersistGate loading={null} persistor={persistor}>
+					<MantineProvider>
+						<Notifications position='bottom-center' />
+						<AuthProvider>
+							<Router>
+								<App />
+							</Router>
+						</AuthProvider>
+					</MantineProvider>
+				</PersistGate>
+			</Provider>
+		</Suspense>
 	</React.StrictMode>
 );

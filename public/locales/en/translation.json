@@ -1,0 +1,14 @@
+{
+	"greeting": "Hi, ",
+	"Navbar_About_Title": "About",
+	"Navbar_About_Title2": "Contacts",
+	"Navbar_About_Title3": "Management",
+	"Navbar_About_Title4": "Login",
+	"Navbar_About_Title5": "Logout",
+	"Calendar_Add_Appointment": "New Appointment",
+	"highlights_sidebar": "Highlights",
+	"product_catalog_title_sidebar": "Our Products",
+	"error_statistics_card": "Ups... It's seems the nail polish came out, sorry!",
+	"statistics_card_title": "Your statistics",
+	"loading": "Loading..."
+}

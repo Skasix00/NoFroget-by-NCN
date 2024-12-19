@@ -5,7 +5,9 @@ import { FaInfoCircle, FaPhone, FaDoorOpen, FaDoorClosed, FaAddressBook } from "
 import { useAuth } from "../../provider/userprovider";
 import { notifications } from "@mantine/notifications";
 import "./index.css";
+import { useTranslation } from "react-i18next";
 export default function Header() {
+	const { t } = useTranslation();
 	const user = useAuth();
 	return (
 		<Navbar className='navbar-bg' expand='lg'>
@@ -20,17 +22,17 @@ export default function Header() {
 			<Navbar.Collapse id='basic-navbar-nav'>
 				<Nav className='ml-auto'>
 					<Nav.Link as={Link} to='/about' className='nav-link'>
-						<FaInfoCircle /> About
+						<FaInfoCircle /> {t("Navbar_About_Title")}
 					</Nav.Link>
 					<Nav.Link as={Link} to='/contact' className='nav-link'>
-						<FaPhone /> Contact
+						<FaPhone /> {t("Navbar_About_Title2")}
 					</Nav.Link>
 					<Nav.Link as={Link} to='/management' className='nav-link'>
-						<FaAddressBook /> Management
+						<FaAddressBook /> {t("Navbar_About_Title3")}
 					</Nav.Link>
 					{!user.jwt ? (
 						<Nav.Link as={Link} to='/login' className='nav-link'>
-							<FaDoorOpen /> Login
+							<FaDoorOpen /> {t("Navbar_About_Title4")}
 						</Nav.Link>
 					) : (
 						<Nav.Link
@@ -48,7 +50,7 @@ export default function Header() {
 								});
 							}}
 						>
-							<FaDoorClosed /> Logout
+							<FaDoorClosed /> {t("Navbar_About_Title5")}
 						</Nav.Link>
 					)}
 				</Nav>

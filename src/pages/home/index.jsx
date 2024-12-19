@@ -11,8 +11,10 @@ import AddEvent from "../../components/AddEvent";
 import "bootstrap/dist/css/bootstrap.min.css";
 import "./index.css";
 import ViewEvent from "../../components/ViewEvent";
+import { useTranslation } from "react-i18next";
 
 export default function Home() {
+	const { t } = useTranslation();
 	const [appointments, setAppointments] = useState([]);
 	const [isModalVisible, setIsModalVisible] = useState(false);
 	const [isViewModalVisible, setIsViewModalVisible] = useState(false);
@@ -70,7 +72,7 @@ export default function Home() {
 	return (
 		<Container fluid size='responsive'>
 			<button className='btn btn-popout' onClick={handleNewEvent}>
-				Nova Marcação
+				{t("Calendar_Add_Appointment")}
 			</button>
 			<AddEvent isVisible={isModalVisible} onClose={handleCloseModal} onAddAppointment={addNewAppointment} />
 			<ViewEvent isVisible={isViewModalVisible} onClose={handleViewCloseModal} appointmentID={appointmentID} />

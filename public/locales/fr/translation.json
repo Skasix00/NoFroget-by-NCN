@@ -1,0 +1,14 @@
+{
+	"greeting": "Bienvenue, ",
+	"Navbar_About_Title": "À Propos de",
+	"Navbar_About_Title2": "Contacts",
+	"Navbar_About_Title3": "Gestion",
+	"Navbar_About_Title4": "Connexion",
+	"Navbar_About_Title5": "Déconnexion",
+	"Calendar_Add_Appointment": "Nouveau Rendez-vous",
+	"highlights_sidebar": "Highlights",
+	"product_catalog_title_sidebar": "Our Products",
+	"error_statistics_card": "Ups... Il semblerait que le vernis à ongles soit sorti, désolé !",
+	"statistics_card_title": "Vos statistiques",
+	"loading": "Chargement..."
+}
